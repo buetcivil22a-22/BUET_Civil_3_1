@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BUET Civil 3-1 — Study Resources</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1e2435;
+    --border: rgba(255,255,255,0.08);
+    --border-hover: rgba(255,255,255,0.18);
+    --text-primary: #eef0f8;
+    --text-secondary: #a0a6be;
+    --text-muted: #636880;
+    --accent-blue: #4e8ef7;
+    --accent-teal: #35c89a;
+    --accent-amber: #f5a623;
+    --accent-purple: #a78bfa;
+    --accent-coral: #f07060;
+    --accent-green: #63c622;
+    --tag-bg: rgba(78,142,247,0.12);
+    --tag-text: #7fb3f9;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 0 0 80px;
+    line-height: 1.6;
+  }
+
+  /* Header */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 40px 24px 32px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .header-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent-teal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-size: clamp(26px, 5vw, 38px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+  .header h1 span {
+    color: var(--accent-teal);
+  }
+  .header-sub {
+    margin-top: 10px;
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+
+  /* Quick links bar */
+  .quicklinks {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+  }
+  .ql-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+    cursor: pointer;
+  }
+  .ql-chip:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .ql-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Main layout */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 24px 0;
+  }
+
+  /* Section */
+  .section { margin-bottom: 48px; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Resource cards */
+  .cards { display: flex; flex-direction: column; gap: 10px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    text-decoration: none;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    transition: border-color 0.15s, background 0.15s;
+    cursor: pointer;
+  }
+  .card:hover {
+    border-color: var(--border-hover);
+    background: var(--surface2);
+  }
+
+  .card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .card-body { flex: 1; min-width: 0; }
+  .card-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    margin-left: 8px;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+  .card-arrow {
+    color: var(--text-muted);
+    font-size: 16px;
+    flex-shrink: 0;
+    align-self: center;
+    transition: color 0.15s;
+  }
+  .card:hover .card-arrow { color: var(--text-secondary); }
+
+  /* Sub-cards (nested links) */
+  .subcards { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+  .subcard {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    transition: border-color 0.15s;
+    cursor: pointer;
+  }
+  .subcard:hover { border-color: var(--border-hover); }
+  .subcard-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .subcard-text { flex: 1; min-width: 0; }
+  .subcard-title { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .subcard-url {
+    font-size: 12px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .subcard-arrow { color: var(--text-muted); font-size: 13px; flex-shrink: 0; }
+
+  /* Channel card (expanded) */
+  .channel-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .channel-header {
+    padding: 14px 18px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .channel-body { padding: 0; }
+
+  /* Suggestion banner */
+  .suggestion-card {
+    background: linear-gradient(135deg, rgba(78,142,247,0.08), rgba(53,200,154,0.08));
+    border: 1px solid rgba(78,142,247,0.2);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .suggestion-card:hover { border-color: rgba(78,142,247,0.4); }
+
+  /* Drive section */
+  .drive-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 540px) { .drive-grid { grid-template-columns: 1fr; } }
+
+  .drive-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.15s, background 0.15s;
+    cursor: pointer;
+  }
+  .drive-card:hover {
+    border-color: var(--border-hover);
+    background: var(--surface2);
+  }
+  .drive-icon-row { display: flex; align-items: center; gap: 10px; }
+  .drive-icon {
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .drive-name { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+  .drive-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* Footer */
+  .footer {
+    max-width: 860px;
+    margin: 48px auto 0;
+    padding: 20px 24px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">BUET · Department of Civil Engineering</div>
+  <h1>3rd Year · 1st Semester<br><span>Study Resources</span></h1>
+  <p class="header-sub">YouTube channels, playlists, lecture recordings &amp; shared drives — all in one place.</p>
+</div>
+
+<!-- Quick chips -->
+<div class="quicklinks">
+  <a class="ql-chip" href="#suggestions"><span class="ql-dot" style="background:#4e8ef7"></span>Suggestion Sheet</a>
+  <a class="ql-chip" href="#channels"><span class="ql-dot" style="background:#35c89a"></span>YouTube Channels</a>
+  <a class="ql-chip" href="#drives"><span class="ql-dot" style="background:#f5a623"></span>Drive Links</a>
+  <a class="ql-chip" href="#guidance"><span class="ql-dot" style="background:#a78bfa"></span>21 Batch Guidance</a>
+</div>
+
+<div class="main">
+
+  <!-- Suggestion Sheet -->
+  <div class="section" id="suggestions">
+    <div class="section-label">📋 &nbsp;Suggestion & Overview</div>
+    <div class="cards">
+      <a class="suggestion-card" href="https://youtube.com/playlist?list=PLXeTa4IPMfH_9XEQ2TlYtyNLxkX6zSF5I&si=7zmiz5dX13rPn1OA" target="_blank">
+        <div class="card-icon" style="background:rgba(78,142,247,0.15); font-size:20px;">🎯</div>
+        <div class="card-body">
+          <div class="card-title" style="font-size:15px;">3-1 Suggestion Playlist</div>
+          <div class="card-desc">Main curated playlist for 3-1 — start here</div>
+        </div>
+        <div class="card-arrow">↗</div>
+      </a>
+
+      <a class="card" href="https://docs.google.com/document/u/0/d/1vnLmTjXjPqozBgvmhQ3sYWHldRyAlz3Z_qWeM8P6tgc/mobilebasic?pli=1" target="_blank">
+        <div class="card-icon" style="background:rgba(53,200,154,0.12);">📄</div>
+        <div class="card-body">
+          <div class="card-title">Class Recordings — Previous Year</div>
+          <div class="card-desc">Google Doc with links to past class recordings</div>
+        </div>
+        <div class="card-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- YouTube Channels & Playlists -->
+  <div class="section" id="channels">
+    <div class="section-label">📺 &nbsp;YouTube Channels & Playlists</div>
+    <div class="cards">
+
+      <!-- Arnab Vai -->
+      <div class="channel-card">
+        <div class="channel-header">
+          <div class="card-icon" style="background:rgba(240,112,96,0.15); width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;">🎓</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:500;color:var(--text-primary);">Arnab Vai</div>
+            <div style="font-size:12px;color:var(--text-secondary);">Main channel + CE 311 TF Solve</div>
+          </div>
+        </div>
+        <div class="subcards" style="padding:12px 14px 14px;">
+          <a class="subcard" href="https://youtube.com/playlist?list=PLkK9xcMC3HVy5r9B-mckREBKL0hhQnsGk&si=nfhEtJlT_7mG4F11" target="_blank">
+            <span class="subcard-dot" style="background:#f07060;"></span>
+            <div class="subcard-text">
+              <div class="subcard-title">Main Playlist</div>
+              <div class="subcard-url">youtube.com/playlist?list=PLkK9xcMC3HVy5r…</div>
+            </div>
+            <span class="subcard-arrow">↗</span>
+          </a>
+          <a class="subcard" href="https://youtube.com/playlist?list=PLkK9xcMC3HVxUbLQ4hWVq_KNGRdPpEeb7&si=8_slbKlMY8f4yIKE" target="_blank">
+            <span class="subcard-dot" style="background:#f5a623;"></span>
+            <div class="subcard-text">
+              <div class="subcard-title">CE 311 — TF Solve</div>
+              <div class="subcard-url">youtube.com/playlist?list=PLkK9xcMC3HVxUb…</div>
+            </div>
+            <span class="subcard-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Alim Bro -->
+      <a class="card" href="https://youtube.com/@alimbro167?si=zwZAZh2GdgLsHAt5" target="_blank">
+        <div class="card-icon" style="background:rgba(99,198,34,0.12);">📐</div>
+        <div class="card-body">
+          <div class="card-title">Alim Bro</div>
+          <div class="card-desc">YouTube channel — @alimbro167</div>
+        </div>
+        <div class="card-arrow">↗</div>
+      </a>
+
+      <!-- Safayat Munnna Vai -->
+      <a class="card" href="https://www.youtube.com/@safayatmunna" target="_blank">
+        <div class="card-icon" style="background:rgba(167,139,250,0.12);">🎬</div>
+        <div class="card-body">
+          <div class="card-title">Safayat Munnna Vai</div>
+          <div class="card-desc">YouTube channel — @safayatmunna</div>
+        </div>
+        <div class="card-arrow">↗</div>
+      </a>
+
+      <!-- Concepta 71 -->
+      <div class="channel-card">
+        <div class="channel-header">
+          <div class="card-icon" style="background:rgba(53,200,154,0.12); width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;">⚙️</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:500;color:var(--text-primary);">Concepta 71</div>
+            <div style="font-size:12px;color:var(--text-secondary);">Enviro pump problems</div>
+          </div>
+        </div>
+        <div class="subcards" style="padding:12px 14px 14px;">
+          <a class="subcard" href="https://youtube.com/playlist?list=PLPS6jpFSfdgy5UI39oq54BhGht6JSyItw&si=foSS2d8vPOVJwiRZ" target="_blank">
+            <span class="subcard-dot" style="background:#35c89a;"></span>
+            <div class="subcard-text">
+              <div class="subcard-title">Enviro Pump Related Problems</div>
+              <div class="subcard-url">youtube.com/playlist?list=PLPS6jpFSfdgy5UI…</div>
+            </div>
+            <span class="subcard-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Parum Affinis -->
+      <a class="card" href="https://youtube.com/playlist?list=PLn7U_l1aUbJmCDcvjS9XugS_Z3p4pmnsx&si=yq7HJsASWsa7CzZP" target="_blank">
+        <div class="card-icon" style="background:rgba(167,139,250,0.12);">🏗️</div>
+        <div class="card-body">
+          <div class="card-title">Parum Affinis — Slab <span class="card-tag">CE-315</span></div>
+          <div class="card-desc">Slab design playlist for CE-315</div>
+        </div>
+        <div class="card-arrow">↗</div>
+      </a>
+
+      <!-- Engineer Components -->
+      <a class="card" href="https://youtube.com/playlist?list=PLcky7i7jtT91CQUsCJ3SpfnBOUAunmjjA&si=_gieaJRYWuKDaiOo" target="_blank">
+        <div class="card-icon" style="background:rgba(245,166,35,0.12);">🚛</div>
+        <div class="card-body">
+          <div class="card-title">Engineer Components — Wheel Load <span class="card-tag">CE-311</span></div>
+          <div class="card-desc">CE-311 wheel load problems playlist</div>
+        </div>
+        <div class="card-arrow">↗</div>
+      </a>
+
+      <!-- Elementary Engineering -->
+      <a class="card" href="https://youtube.com/@elementaryengineering?si=UzXGdzm_ia_4ZkRu" target="_blank">
+        <div class="card-icon" style="background:rgba(78,142,247,0.12);">🔬</div>
+        <div class="card-body">
+          <div class="card-title">Elementary Engineering</div>
+          <div class="card-desc">YouTube channel — @elementaryengineering</div>
+        </div>
+        <div class="card-arrow">↗</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Drive Links -->
+  <div class="section" id="drives">
+    <div class="section-label">📁 &nbsp;Shared Drives</div>
+    <div class="drive-grid">
+      <a class="drive-card" href="https://drive.google.com/drive/folders/14BDecqGnCRFTBOR13pXwiZqq5OYV3Sgv?usp=drive_link" target="_blank">
+        <div class="drive-icon-row">
+          <div class="drive-icon" style="background:rgba(245,166,35,0.12);">📂</div>
+          <div class="drive-name">Abir Vai's Drive</div>
+        </div>
+        <div class="drive-desc">Shared folder with notes and materials from Abir Vai</div>
+        <div style="font-size:11px;color:var(--accent-amber);">drive.google.com ↗</div>
+      </a>
+      <a class="drive-card" href="https://drive.google.com/drive/folders/1FwSvLec-_yMJ-hOy6UwlX5pjEfncFKiY?usp=sharing" target="_blank" id="guidance">
+        <div class="drive-icon-row">
+          <div class="drive-icon" style="background:rgba(167,139,250,0.12);">🗂️</div>
+          <div class="drive-name">Guidance from Batch 21</div>
+        </div>
+        <div class="drive-desc">Senior batch guidance, tips and resources for 3-1</div>
+        <div style="font-size:11px;color:var(--accent-purple);">drive.google.com ↗</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>BUET Civil Engineering · 3rd Year 1st Semester</span>
+  <span>Share this page with your batch 📤</span>
+</div>
+
+</body>
+</html>
